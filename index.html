@@ -4,49 +4,102 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>육아·쇼핑 추천</title>
-  <meta name="description" content="육아/쇼핑 추천 정보 정리와 비교표" />
+  <meta name="description" content="건조기 가능 / 소재 / 가격대 기준으로 육아·쇼핑 제품을 비교 정리합니다." />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header class="wrap">
-    <h1>육아·쇼핑 추천</h1>
-    <p>건조기 가능 / 소재 / 가격대 기준으로 정리합니다.</p>
-    <nav class="nav">
-      <a href="#cat1">낮잠이불</a>
-      <a href="#cat2">기저귀</a>
-      <a href="#cat3">물티슈</a>
-      <a href="#about">About</a>
-    </nav>
-  </header>
+  <div class="container">
 
-  <main class="wrap">
-    <section id="cat1">
-      <h2>낮잠이불</h2>
+    <header class="topbar">
+      <div class="brand">
+        <h1>육아·쇼핑 추천</h1>
+        <p>건조기 가능 · 소재 · 가격대 기준으로 정리합니다</p>
+      </div>
+      <nav class="nav">
+        <a class="pill" href="#nap">낮잠이불</a>
+        <a class="pill" href="#diaper">기저귀</a>
+        <a class="pill" href="#wipe">물티슈</a>
+        <a class="pill" href="#about">About</a>
+      </nav>
+    </header>
 
-      <article class="card">
-        <h3>모달 + 건조기 가능 제품 비교</h3>
-        <p>어린이집용으로 똑딱이 단추/세탁 난이도 위주로 정리.</p>
-        <a class="btn" href="posts/nap-blanket-compare.html">자세히 보기</a>
+    <section class="hero">
+      <h2>오늘의 추천을 “한 눈에”</h2>
+      <p class="sub">짧은 결론 → 비교 포인트 → 자세한 글(비교표) 순서로 구성합니다.</p>
+    </section>
+
+    <section class="grid">
+      <!-- 메인 카드 -->
+      <article class="card" id="nap">
+        <div class="hd">
+          <span class="kicker">낮잠이불</span>
+          <h3>모달 + 건조기 가능 제품 비교</h3>
+          <p>어린이집용으로 똑딱이 단추/세탁 난이도 위주로 정리</p>
+        </div>
+        <div class="bd">
+          <a class="btn" href="posts/nap-blanket-compare.html">자세히 보기 →</a>
+
+          <div class="ad">
+            <p class="label">광고</p>
+            <div class="box">Ad 영역(AdSense 승인 후 삽입)</div>
+          </div>
+        </div>
       </article>
+
+      <!-- 사이드 리스트 -->
+      <aside class="card">
+        <div class="hd">
+          <span class="kicker">빠른 바로가기</span>
+          <h3>카테고리별 추천</h3>
+          <p>최소 클릭으로 원하는 정보를 찾게 만들기</p>
+        </div>
+        <div class="bd">
+          <div class="list">
+            <div class="item" id="diaper">
+              <div>
+                <strong>기저귀</strong>
+                <span>발진/흡수/핏 기준 추천</span>
+              </div>
+              <a href="#">준비중</a>
+            </div>
+            <div class="item" id="wipe">
+              <div>
+                <strong>물티슈</strong>
+                <span>성분/두께/보풀 기준 추천</span>
+              </div>
+              <a href="#">준비중</a>
+            </div>
+            <div class="item">
+              <div>
+                <strong>이유식/간식</strong>
+                <span>알레르기/성분표 체크</span>
+              </div>
+              <a href="#">준비중</a>
+            </div>
+            <div class="item">
+              <div>
+                <strong>외출용품</strong>
+                <span>휴대성/세척 난이도</span>
+              </div>
+              <a href="#">준비중</a>
+            </div>
+          </div>
+
+          <div class="ad" style="margin-top:14px;">
+            <p class="label">광고</p>
+            <div class="box">Ad 영역(리스트 중간용)</div>
+          </div>
+        </div>
+      </aside>
     </section>
 
-    <hr />
-
-    <section class="ad">
-      <p class="ad-label">광고</p>
-      <!-- AdSense 승인 후 여기 스니펫을 넣으면 됨 -->
-      <div class="ad-box">Ad 영역(승인 후 삽입)</div>
+    <section class="section" id="about">
+      <h4>About</h4>
+      <p>육아/쇼핑 추천을 기준(소재, 건조기 가능, 내구성 등)으로 정리합니다.<br>
+      문의: contact@example.com (나중에 바꾸기)</p>
     </section>
 
-    <section id="about">
-      <h2>About</h2>
-      <p>육아/쇼핑 추천을 기준(소재, 건조기 가능, 내구성 등)으로 정리합니다.</p>
-      <p>문의: contact@example.com (나중에 바꾸기)</p>
-    </section>
-  </main>
-
-  <footer class="wrap foot">
-    <small>© 2026</small>
-  </footer>
+    <div class="footer">© 2026</div>
+  </div>
 </body>
 </html>
