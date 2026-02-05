@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>낮잠이불 결정하기</title>
+  <style>
+    body{margin:0;font-family:system-ui,-apple-system,"Noto Sans KR",sans-serif;background:#0b1220;color:#fff;line-height:1.7;}
+    .wrap{max-width:980px;margin:0 auto;padding:24px 16px 60px;}
+    a{color:inherit;text-decoration:none;}
+    .top{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px;border:1px solid rgba(255,255,255,.12);border-radius:16px;background:rgba(255,255,255,.05);}
+    .muted{opacity:.75;font-size:13px;}
+    .grid{display:grid;grid-template-columns:1.5fr 1fr;gap:12px;margin-top:12px;}
+    @media(max-width:900px){.grid{grid-template-columns:1fr;}}
+    .card{border:1px solid rgba(255,255,255,.12);border-radius:16px;background:rgba(255,255,255,.05);padding:16px;}
+    .k{font-size:12px;opacity:.7;border:1px solid rgba(255,255,255,.12);display:inline-block;padding:4px 10px;border-radius:999px;}
+    h1{margin:6px 0 0;font-size:20px;}
+    h2{margin:0 0 6px;font-size:15px;}
+    .step{margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.12);}
+    .btnrow{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;}
+    button{
+      cursor:pointer;border:1px solid rgba(255,255,255,.18);
+      background:rgba(255,255,255,.08);color:#fff;border-radius:12px;
+      padding:9px 12px;font-weight:700;
+    }
+    button:hover{background:rgba(255,255,255,.12);}
+    button.secondary{background:rgba(255,255,255,.03);color:rgba(255,255,255,.75);font-weight:600;}
+    .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;}
+    .chip{font-size:12px;opacity:.8;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.03);padding:6px 10px;border-radius:999px;}
+    .box{border:1px solid rgba(255,255,255,.12);border-radius:14px;background:rgba(255,255,255,.03);padding:12px;}
+    .list{display:flex;flex-direction:column;gap:10px;margin-top:8px;}
+    .item{border:1px solid rgba(255,255,255,.12);border-radius:14px;background:rgba(255,255,255,.03);padding:12px;}
+    .item b{display:block;}
+    .item .meta{opacity:.75;font-size:12px;margin-top:2px;}
+    .badge{display:inline-block;font-size:11px;opacity:.8;border:1px solid rgba(255,255,255,.12);padding:3px 8px;border-radius:999px;margin-right:6px;}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="top">
+      <div>
+        <div class="muted">선택 구간(여러 단계) → Top 3 추천 · 브랜드 실시간 표시</div>
+        <h1>낮잠이불 결정하기</h1>
+      </div>
+      <div class="muted">
+        <a href="index.html">← 카테고리</a> &nbsp;|&nbsp;
+        <a href="../index.html">홈</a>
+      </div>
+    </div>
+
+    <div class="grid">
+      <!-- 왼쪽: 선택 -->
+      <div class="card">
+        <span class="k">조건 선택</span>
+        <div class="muted" style="margin-top:6px;">
+          선택을 할수록 후보가 줄어듭니다. (선택 구간은 계속 추가 가능)
+        </div>
+
+        <div class="step">
+          <h2>1) 건조기</h2>
+          <div class="btnrow">
+            <button onclick="setFilter('dryer','yes')">가능</button>
+            <button onclick="setFilter('dryer','no')">불가</button>
+            <button class="secondary" onclick="resetAll()">처음부터</button>
+          </div>
+        </div>
+
+        <div class="step">
+          <h2>2) 가격대</h2>
+          <div class="btnrow">
+            <button onclick="setFilter('price','lte10')">10만원 이하</button>
+            <button onclick="setFilter('price','gt10')">10만원 이상</button>
+            <button onclick="setFilter('price','any')">상관없음</button>
+          </div>
+        </div>
+
+        <div class="step">
+          <h2>3) 소재</h2>
+          <div class="btnrow">
+            <button onclick="setFilter('fabric','modal')">모달</button>
+            <button onclick="setFilter('fabric','cotton')">면/혼방</button>
+            <button onclick="setFilter('fabric','cool')">쿨링(듀라론 등)</button>
+            <button onclick="setFilter('fabric','any')">상관없음</button>
+          </div>
+        </div>
+
+        <div class="step">
+          <h2>4) 똑딱이 단추</h2>
+          <div class="btnrow">
+            <button onclick="setFilter('snap','need')">필요</button>
+            <button onclick="setFilter('snap','nope')">불필요</button>
+            <button onclick="setFilter('snap','any')">상관없음</button>
+          </div>
+        </div>
+
+        <div class="step">
+          <h2>5) 구성</h2>
+          <div class="btnrow">
+            <button onclick="setFilter('set','full')">풀세트(이불+패드+베개 등)</button>
+            <button onclick="setFilter('set','blanket')">이불 위주</button>
+            <button onclick="setFilter('set','any')">상관없음</button>
+          </div>
+        </div>
+
+        <div class="step">
+          <h2>6) 계절감</h2>
+          <div class="btnrow">
+            <button onclick="setFilter('season','all')">사계절</button>
+            <button onclick="setFilter('season','summer')">여름</button>
+            <button onclick="setFilter('season','winter')">간절기/겨울</button>
+            <button onclick="setFilter('season','any')">상관없음</button>
+          </div>
+        </div>
+
+        <div class="step">
+          <h2>현재 선택</h2>
+          <div class="chips" id="chips"></div>
+        </div>
+      </div>
+
+      <!-- 오른쪽: 브랜드/결과 -->
+      <div class="card">
+        <span class="k">추천 결과</span>
+
+        <div class="step" style="border-top:none;padding-top:10px;">
+          <h2>가능한 브랜드 (실시간)</h2>
+          <div class="box">
+            <div class="chips" id="brands"></div>
+            <div class="muted" id="brandsHint" style="margin-top:6px;"></div>
+          </div>
+        </div>
+
+        <div class="step">
+          <h2>Top 3 추천</h2>
+          <div class="list" id="top3"></div>
+          <div class="muted" id="noResult" style="display:none;margin-top:8px;">
+            조건이 너무 빡세서 후보가 없어요. “상관없음”을 하나씩 눌러 완화해봐.
+          </div>
+        </div>
+
+        <div class="step">
+          <h2>남은 후보</h2>
+          <div class="box" id="remain"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+/** ✅ 제품 데이터(예시) — 너가 브랜드/제품 계속 추가하면 추천기가 강해짐 */
+const products = [
+  {id:"NB01", brand:"브랜드A", name:"모달 낮잠이불 A", dryer:"yes", price:"lte10", fabric:"modal", snap:"need", set:"full", season:"all"},
+  {id:"NB02", brand:"브랜드A", name:"쿨링 낮잠이불 A2", dryer:"no", price:"lte10", fabric:"cool", snap:"need", set:"blanket", season:"summer"},
+  {id:"NB03", brand:"브랜드B", name:"면혼방 낮잠이불 B", dryer:"yes", price:"gt10", fabric:"cotton", snap:"any", set:"full", season:"all"},
+  {id:"NB04", brand:"브랜드B", name:"모달 프리미엄 B2", dryer:"yes", price:"gt10", fabric:"modal", snap:"need", set:"full", season:"winter"},
+  {id:"NB05", brand:"브랜드C", name:"쿨링 프리미엄 C", dryer:"no", price:"gt10", fabric:"cool", snap:"any", set:"blanket", season:"summer"},
+  {id:"NB06", brand:"브랜드D", name:"가성비 모달 D", dryer:"yes", price:"lte10", fabric:"modal", snap:"any", set:"blanket", season:"all"},
+  {id:"NB07", brand:"브랜드D", name:"사계절 면혼방 D2", dryer:"no", price:"lte10", fabric:"cotton", snap:"need", set:"full", season:"all"},
+  {id:"NB08", brand:"브랜드E", name:"겨울용 두툼 E", dryer:"no", price:"gt10", fabric:"cotton", snap:"nope", set:"full", season:"winter"},
+  {id:"NB09", brand:"브랜드F", name:"여름 쿨링 F", dryer:"yes", price:"lte10", fabric:"cool", snap:"any", set:"blanket", season:"summer"},
+  {id:"NB10", brand:"브랜드G", name:"모달 풀세트 G", dryer:"yes", price:"gt10", fabric:"modal", snap:"need", set:"full", season:"all"},
+];
+
+const filters = {
+  dryer: null, price: null, fabric: null, snap: null, set: null, season: null
+};
+
+function label(key, val){
+  const map = {
+    dryer: {yes:"건조기 가능", no:"건조기 불가"},
+    price: {lte10:"10만원 이하", gt10:"10만원 이상", any:"가격 상관없음"},
+    fabric:{modal:"모달", cotton:"면/혼방", cool:"쿨링", any:"소재 상관없음"},
+    snap: {need:"똑딱이 필요", nope:"똑딱이 불필요", any:"똑딱이 상관없음"},
+    set:  {full:"풀세트", blanket:"이불 위주", any:"구성 상관없음"},
+    season:{all:"사계절", summer:"여름", winter:"간절기/겨울", any:"계절 상관없음"},
+  };
+  if(!val) return null;
+  return (map[key] && map[key][val]) ? map[key][val] : `${key}:${val}`;
+}
+
+function setFilter(key, val){
+  filters[key] = (val === "any") ? null : val;
+  render();
+}
+
+function resetAll(){
+  Object.keys(filters).forEach(k => filters[k] = null);
+  render();
+}
+
+function getCandidates(){
+  return products.filter(p => {
+    for(const k of Object.keys(filters)){
+      if(filters[k] !== null && p[k] !== filters[k]) return false;
+    }
+    return true;
+  });
+}
+
+/** 점수 기반 Top3: 조건에 맞는 걸 우선 + (snap 필요/풀세트 같은 강한 조건에 가중치) */
+function scoreProduct(p){
+  let s = 0;
+  if(filters.dryer && p.dryer === filters.dryer) s += 3;
+  if(filters.price && p.price === filters.price) s += 2;
+  if(filters.fabric && p.fabric === filters.fabric) s += 2;
+  if(filters.snap && p.snap === filters.snap) s += (filters.snap==="need"?3:1);
+  if(filters.set && p.set === filters.set) s += 2;
+  if(filters.season && p.season === filters.season) s += 1;
+  return s;
+}
+
+function render(){
+  const chipsEl = document.getElementById("chips");
+  chipsEl.innerHTML = "";
+  for(const k of Object.keys(filters)){
+    if(filters[k] !== null){
+      const d = document.createElement("div");
+      d.className = "chip";
+      d.textContent = label(k, filters[k]);
+      chipsEl.appendChild(d);
+    }
+  }
+  if(chipsEl.children.length === 0){
+    const d = document.createElement("div");
+    d.className="chip"; d.textContent="선택 없음(전체 후보)";
+    chipsEl.appendChild(d);
+  }
+
+  const candidates = getCandidates();
+
+  // 브랜드 실시간 표시
+  const brandsEl = document.getElementById("brands");
+  const brandsHint = document.getElementById("brandsHint");
+  brandsEl.innerHTML = "";
+  const brands = [...new Set(candidates.map(x => x.brand))].sort();
+  if(brands.length === 0){
+    brandsHint.textContent = "가능한 브랜드가 없습니다.";
+  } else {
+    brandsHint.textContent = `${brands.length}개 브랜드가 조건을 만족합니다.`;
+    brands.forEach(b => {
+      const d = document.createElement("div");
+      d.className="chip"; d.textContent=b;
+      brandsEl.appendChild(d);
+    });
+  }
+
+  // Top3 추천
+  const top3El = document.getElementById("top3");
+  const noResult = document.getElementById("noResult");
+  top3El.innerHTML = "";
+
+  if(candidates.length === 0){
+    noResult.style.display = "";
+  } else {
+    noResult.style.display = "none";
+    const ranked = [...candidates]
+      .map(p => ({p, s: scoreProduct(p)}))
+      .sort((a,b) => b.s - a.s)
+      .slice(0,3);
+
+    ranked.forEach((r, idx) => {
+      const el = document.createElement("div");
+      el.className = "item";
+      const why = buildWhy(r.p);
+      el.innerHTML = `
+        <div class="badge">TOP ${idx+1}</div>
+        <b>${r.p.name}</b>
+        <div class="meta">${r.p.brand} · 점수 ${r.s}</div>
+        <div class="muted" style="margin-top:6px;">${why}</div>
+      `;
+      top3El.appendChild(el);
+    });
+  }
+
+  // 남은 후보
+  const remainEl = document.getElementById("remain");
+  remainEl.innerHTML = `<div class="muted">현재 ${candidates.length}개 후보</div>` +
+    (candidates.length ? `<div class="chips" style="margin-top:8px;">${
+      candidates.slice(0,12).map(p => `<span class="chip">${p.brand} · ${p.name}</span>`).join("")
+    }${candidates.length>12 ? `<span class="chip">+${candidates.length-12} 더 있음</span>`:""}</div>` : "");
+}
+
+function buildWhy(p){
+  const parts = [];
+  if(filters.dryer) parts.push(`건조기: ${p.dryer==="yes"?"가능":"불가"}`);
+  if(filters.price) parts.push(`가격대: ${p.price==="lte10"?"10만원 이하":"10만원 이상"}`);
+  if(filters.fabric) parts.push(`소재: ${fabricName(p.fabric)}`);
+  if(filters.snap) parts.push(`똑딱이: ${snapName(p.snap)}`);
+  if(filters.set) parts.push(`구성: ${p.set==="full"?"풀세트":"이불 위주"}`);
+  if(filters.season) parts.push(`계절: ${seasonName(p.season)}`);
+  if(parts.length===0) return "선택 조건이 없어서 전체 후보 중 점수 기반으로 추천합니다.";
+  return "선택 조건 기준 매칭: " + parts.join(" · ");
+}
+function fabricName(x){ return x==="modal"?"모달":x==="cotton"?"면/혼방":"쿨링"; }
+function snapName(x){ return x==="need"?"있음(필요)":x==="nope"?"없음":"상관없음"; }
+function seasonName(x){ return x==="all"?"사계절":x==="summer"?"여름":"간절기/겨울"; }
+
+render();
+</script>
+</body>
+</html>
