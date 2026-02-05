@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>제품 결정하기</title>
+  <style>
+    body{margin:0;font-family:system-ui,-apple-system,"Noto Sans KR",sans-serif;background:#0b1220;color:#fff;}
+    .wrap{max-width:920px;margin:0 auto;padding:24px 16px 60px;}
+    a{color:inherit;text-decoration:none;}
+    .top{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 14px;border:1px solid rgba(255,255,255,.12);border-radius:16px;background:rgba(255,255,255,.05);}
+    .muted{opacity:.75;font-size:13px;}
+    .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:14px;}
+    @media (max-width:720px){.grid{grid-template-columns:1fr;}}
+    .card{border:1px solid rgba(255,255,255,.12);border-radius:16px;background:rgba(255,255,255,.05);padding:16px;}
+    .card:hover{background:rgba(255,255,255,.08);}
+    .k{font-size:12px;opacity:.7;border:1px solid rgba(255,255,255,.12);display:inline-block;padding:4px 10px;border-radius:999px;}
+    h1{margin:10px 0 4px;font-size:22px;}
+    h2{margin:8px 0 6px;font-size:16px;}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="top">
+      <div>
+        <div class="muted">선택 → 선택 → Top 3 추천</div>
+        <h1 style="margin:4px 0 0;">제품 결정하기</h1>
+      </div>
+      <a class="muted" href="../index.html">← 홈</a>
+    </div>
+
+    <p class="muted" style="margin-top:12px;">
+      카테고리를 고르면, 조건을 여러 단계로 선택하면서 최종 Top 3를 추천해줍니다.
+      (가능한 브랜드는 실시간으로 표시)
+    </p>
+
+    <div class="grid">
+      <a class="card" href="nap-blanket.html">
+        <span class="k">카테고리</span>
+        <h2>낮잠이불</h2>
+        <div class="muted">건조기/가격/소재/똑딱이/계절…</div>
+      </a>
+
+      <a class="card" href="#" onclick="alert('준비중! 먼저 낮잠이불부터 완성하자.'); return false;">
+        <span class="k">카테고리</span>
+        <h2>침대</h2>
+        <div class="muted">크기/가드/매트리스/경도…</div>
+      </a>
+
+      <a class="card" href="#" onclick="alert('준비중!'); return false;">
+        <span class="k">카테고리</span>
+        <h2>이유식</h2>
+        <div class="muted">알레르기/재료/형태/가격…</div>
+      </a>
+
+      <a class="card" href="#" onclick="alert('준비중!'); return false;">
+        <span class="k">카테고리</span>
+        <h2>신발</h2>
+        <div class="muted">사이즈/발볼/소재/착화감…</div>
+      </a>
+    </div>
+  </div>
+</body>
+</html>
