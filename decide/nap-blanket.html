@@ -265,7 +265,7 @@ function resetAll(){
 function getCandidates(){
   return products.filter(p => {
     for(const k of Object.keys(filters)){
-      if(filters[k] !== null && p[k] !== filters[k]) return false;
+      if(filters[k] !== null && (p[k] !== undefined) && p[k] !== filters[k]) return false;
     }
     return true;
   });
@@ -358,6 +358,9 @@ function render(){
     (candidates.length ? `<div class="chips" style="margin-top:8px;">${
       candidates.slice(0,12).map(p => `<span class="chip">${p.brand} · ${p.name}</span>`).join("")
     }${candidates.length>12 ? `<span class="chip">+${candidates.length-12} 더 있음</span>`:""}</div>` : "");
+
+  updateActiveButtons();
+
 }
 
 function buildWhy(p){
@@ -381,8 +384,7 @@ function fabricName(x){ return x==="modal"?"모달":x==="cotton"?"면/혼방":"�
 function snapName(x){ return x==="need"?"있음(필요)":x==="nope"?"없음":"상관없음"; }
 function seasonName(x){ return x==="all"?"사계절":x==="summer"?"여름":"간절기/겨울"; }
 
-render(updateActiveButtons();
-);
+render();
 
   function updateActiveButtons(){
   // 모든 버튼에서 active 제거
