@@ -119,6 +119,61 @@
             <button onclick="setFilter('season','any')">상관없음</button>
           </div>
         </div>
+        <div class="step">
+          <h2>7) 네임택</h2>
+          <div class="btnrow">
+            <button onclick="setFilter('nametag','yes')">포함</button>
+            <button onclick="setFilter('nametag','no')">미포함</button>
+            <button onclick="setFilter('nametag','any')">상관없음</button>
+          </div>
+        </div>
+        
+        <div class="step">
+          <h2>8) 이불 두께</h2>
+          <div class="btnrow">
+            <button onclick="setFilter('thickness','thin')">얇음</button>
+            <button onclick="setFilter('thickness','mid')">중간</button>
+            <button onclick="setFilter('thickness','thick')">두툼</button>
+            <button onclick="setFilter('thickness','any')">상관없음</button>
+          </div>
+        </div>
+        
+        <div class="step">
+          <h2>9) 사이즈</h2>
+          <div class="btnrow">
+            <button onclick="setFilter('size','standard')">어린이집 표준</button>
+            <button onclick="setFilter('size','large')">대형</button>
+            <button onclick="setFilter('size','any')">상관없음</button>
+          </div>
+        </div>
+        
+        <div class="step">
+          <h2>10) 세탁망 필요</h2>
+          <div class="btnrow">
+            <button onclick="setFilter('laundryBag','need')">필요(관리 난이도↑)</button>
+            <button onclick="setFilter('laundryBag','no')">불필요</button>
+            <button onclick="setFilter('laundryBag','any')">상관없음</button>
+          </div>
+        </div>
+        
+        <div class="step">
+          <h2>11) 피부 민감</h2>
+          <div class="btnrow">
+            <button onclick="setFilter('skin','sensitive')">무향/저자극 선호</button>
+            <button onclick="setFilter('skin','normal')">일반</button>
+            <button onclick="setFilter('skin','any')">상관없음</button>
+          </div>
+        </div>
+        
+        <div class="step">
+          <h2>12) 알러지</h2>
+          <div class="btnrow">
+            <button onclick="setFilter('allergy','mite')">진드기 방지 선호</button>
+            <button onclick="setFilter('allergy','normal')">일반</button>
+            <button onclick="setFilter('allergy','any')">상관없음</button>
+          </div>
+        </div>
+
 
         <div class="step">
           <h2>현재 선택</h2>
@@ -157,7 +212,7 @@
 <script>
 /** ✅ 제품 데이터(예시) — 너가 브랜드/제품 계속 추가하면 추천기가 강해짐 */
 const products = [
-  {id:"NB01", brand:"브랜드A", name:"모달 낮잠이불 A", dryer:"yes", price:"lte10", fabric:"modal", snap:"need", set:"full", season:"all"},
+  {id:"NB01", brand:"브랜드A", name:"모달 낮잠이불 A", dryer:"yes", price:"lte10", fabric:"modal", snap:"need", set:"full", season:"all", nametag:"yes", thickness:"mid", size:"standard", laundryBag:"no", skin:"sensitive", allergy:"mite"},
   {id:"NB02", brand:"브랜드A", name:"쿨링 낮잠이불 A2", dryer:"no", price:"lte10", fabric:"cool", snap:"need", set:"blanket", season:"summer"},
   {id:"NB03", brand:"브랜드B", name:"면혼방 낮잠이불 B", dryer:"yes", price:"gt10", fabric:"cotton", snap:"any", set:"full", season:"all"},
   {id:"NB04", brand:"브랜드B", name:"모달 프리미엄 B2", dryer:"yes", price:"gt10", fabric:"modal", snap:"need", set:"full", season:"winter"},
@@ -169,9 +224,13 @@ const products = [
   {id:"NB10", brand:"브랜드G", name:"모달 풀세트 G", dryer:"yes", price:"gt10", fabric:"modal", snap:"need", set:"full", season:"all"},
 ];
 
+
+  
 const filters = {
-  dryer: null, price: null, fabric: null, snap: null, set: null, season: null
+  dryer:null, price:null, fabric:null, snap:null, set:null, season:null,
+  nametag:null, thickness:null, size:null, laundryBag:null, skin:null, allergy:null
 };
+
 
 function label(key, val){
   const map = {
@@ -181,6 +240,13 @@ function label(key, val){
     snap: {need:"똑딱이 필요", nope:"똑딱이 불필요", any:"똑딱이 상관없음"},
     set:  {full:"풀세트", blanket:"이불 위주", any:"구성 상관없음"},
     season:{all:"사계절", summer:"여름", winter:"간절기/겨울", any:"계절 상관없음"},
+    nametag:{yes:"네임택 포함", no:"네임택 미포함"},
+    thickness:{thin:"두께 얇음", mid:"두께 중간", thick:"두께 두툼"},
+    size:{standard:"사이즈 표준", large:"사이즈 대형"},
+    laundryBag:{need:"세탁망 필요", no:"세탁망 불필요"},
+    skin:{sensitive:"피부민감(무향/저자극)", normal:"피부 일반"},
+    allergy:{mite:"알러지(진드기 방지)", normal:"알러지 일반"},
+
   };
   if(!val) return null;
   return (map[key] && map[key][val]) ? map[key][val] : `${key}:${val}`;
@@ -208,6 +274,12 @@ function getCandidates(){
 /** 점수 기반 Top3: 조건에 맞는 걸 우선 + (snap 필요/풀세트 같은 강한 조건에 가중치) */
 function scoreProduct(p){
   let s = 0;
+  if(filters.nametag && p.nametag === filters.nametag) s += 1;
+  if(filters.thickness && p.thickness === filters.thickness) s += 1;
+  if(filters.size && p.size === filters.size) s += 1;
+  if(filters.laundryBag && p.laundryBag === filters.laundryBag) s += 1;
+  if(filters.skin && p.skin === filters.skin) s += 1;
+  if(filters.allergy && p.allergy === filters.allergy) s += 1;
   if(filters.dryer && p.dryer === filters.dryer) s += 3;
   if(filters.price && p.price === filters.price) s += 2;
   if(filters.fabric && p.fabric === filters.fabric) s += 2;
@@ -290,6 +362,12 @@ function render(){
 
 function buildWhy(p){
   const parts = [];
+  if(filters.nametag) parts.push(`네임택: ${p.nametag==="yes"?"포함":"미포함"}`);
+  if(filters.thickness) parts.push(`두께: ${p.thickness==="thin"?"얇음":p.thickness==="mid"?"중간":"두툼"}`);
+  if(filters.size) parts.push(`사이즈: ${p.size==="standard"?"표준":"대형"}`);
+  if(filters.laundryBag) parts.push(`세탁망: ${p.laundryBag==="need"?"필요":"불필요"}`);
+  if(filters.skin) parts.push(`피부: ${p.skin==="sensitive"?"저자극 선호":"일반"}`);
+  if(filters.allergy) parts.push(`알러지: ${p.allergy==="mite"?"진드기 방지 선호":"일반"}`);
   if(filters.dryer) parts.push(`건조기: ${p.dryer==="yes"?"가능":"불가"}`);
   if(filters.price) parts.push(`가격대: ${p.price==="lte10"?"10만원 이하":"10만원 이상"}`);
   if(filters.fabric) parts.push(`소재: ${fabricName(p.fabric)}`);
@@ -303,7 +381,23 @@ function fabricName(x){ return x==="modal"?"모달":x==="cotton"?"면/혼방":"�
 function snapName(x){ return x==="need"?"있음(필요)":x==="nope"?"없음":"상관없음"; }
 function seasonName(x){ return x==="all"?"사계절":x==="summer"?"여름":"간절기/겨울"; }
 
-render();
+render(updateActiveButtons();
+);
+
+  function updateActiveButtons(){
+  // 모든 버튼에서 active 제거
+  document.querySelectorAll("button").forEach(b => b.classList.remove("active"));
+
+  // 각 필터별로 현재 선택값에 해당하는 버튼에 active 부여
+  // 버튼은 onclick="setFilter('key','value')" 형태이므로 그 문자열로 찾음
+  for(const k of Object.keys(filters)){
+    if(filters[k] === null) continue;
+    const selector = `button[onclick*="setFilter('${k}','${filters[k]}')"]`;
+    const btn = document.querySelector(selector);
+    if(btn) btn.classList.add("active");
+  }
+}
+
 </script>
 </body>
 </html>
